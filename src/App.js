@@ -1,12 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { Appbar } from "./components/Appbar";
+import { Report } from "./view/Report";
+import { Customize } from "./view/Customize";
+import { Test } from "./view/Test";
+import { Home } from "./view/Home";
 
 function App() {
   return (
     <div className="App">
-      <header>This header is coming from App.js, and the table is coming from ReportTable.js</header>
+      <Appbar />
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route path="/report" element={<Report />} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
     </div>
   );
 }
+
 
 export default App;
