@@ -14,8 +14,6 @@ const CircleNode = ({ data }) => {
   );
 };
 
-
-
 export const nodeTypes = {
   circle: CircleNode,
 };

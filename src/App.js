@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import FittsTest from './views/fitts_test.jsx'
-import UpdateNode from './views/update_color';
+import UpdateNode from './components/testing/fitts_nodes';
+import { initialElements } from './components/testing/initialElements';
+
 function App() {
   return (
     <div >
-      
-      {/* <FittsTest /> */}
-      <UpdateNode/>
+      <UpdateNode initialElements={initialElements}/>
     </div>
   );
 }
