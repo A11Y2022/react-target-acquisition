@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Appbar } from "./components/Appbar";
+import { Appbar } from "./components/navigation/Appbar";
 import { Report } from "./view/Report";
 import { Customize } from "./view/Customize";
 import { Test } from "./view/Test";
