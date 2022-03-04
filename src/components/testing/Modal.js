@@ -1,24 +1,11 @@
-<<<<<<< Updated upstream:src/components/testing/Modal.js
-import React from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
-=======
 import React, {useState} from 'react';
 import {button, Modal, Form} from 'react-bootstrap';
->>>>>>> Stashed changes:src/components/Modal.js
 
 export default class FittsModal extends React.Component {
-  constructor()
+  constructor(props)
   {
-    super()
+    super(props)
     this.state={
-<<<<<<< Updated upstream:src/components/testing/Modal.js
-      show: false
-    }
-  }
-  handleModal(){
-    this.setState({show:!this.state.show})
-  }
-=======
       show: true
     }
   }
@@ -27,7 +14,6 @@ export default class FittsModal extends React.Component {
     this.setState({show:!this.state.show})
   }
 
->>>>>>> Stashed changes:src/components/Modal.js
   render() {
      return (
         <div>
@@ -64,13 +50,8 @@ export default class FittsModal extends React.Component {
              </Form>
             </Modal.Body>
             <Modal.Footer>
-<<<<<<< Updated upstream:src/components/testing/Modal.js
-              <Button onClick={() => {this.handleModal()}}>Close</Button>
-              <Button>Save</Button>
-=======
               {/* <Button onClick={() => {this.handleModal()}}>Close</Button> */}
               <button type="button" class="btn btn-primary">Start</button>
->>>>>>> Stashed changes:src/components/Modal.js
             </Modal.Footer>
           </Modal>
         </div>
