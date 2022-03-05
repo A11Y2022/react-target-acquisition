@@ -1,55 +1,81 @@
 import React from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
+import axios from 'axios';
+
 
 export default class FittsModal extends React.Component {
-  constructor()
-  {
+  constructor() {
     super()
-    this.state={
-      show: false
-    }
+    this.state = {
+      show: false,
+      id: null,
+      trials: 0,
+      value: 'easy',
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
-  handleModal(){
-    this.setState({show:!this.state.show})
+
+  handleChange(event) { this.setState({ value: event.target.value }); }//change difficulty
+  handleModal() { this.setState({ show: !this.state.show }) } //close modal
+  handleInputChange(event) {   //handle input change for id and for trials
+    const target = event.target;
+    const name = target.name;
+    this.setState({
+      [name]: target.value
+    });
   }
+  handleSubmit(event) {
+    event.preventDefault();
+
+    axios.post("http://127.0.0.1:3001/test/create", {
+      id: this.state.id,
+      trials: this.state.trials,
+      difficulty: this.state.value
+    })
+      .then(res => res)
+      .then(data => console.log(data))
+  }
+
   render() {
-     return (
-        <div>
-          <Button onClick={() => {this.handleModal()}}> Test</Button>
-          <Modal show= {this.state.show} onHide={() => {this.handleModal()}} >
-            <Modal.Header closeButton>Test Settings</Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group className="mb-3" controlId="subjectId">
-                  <Form.Label>Subject ID</Form.Label>
-                  <Form.Control type="subjectId" placeholder="" />
-                  <Form.Text className="text-muted">
-                    <></>
-                  </Form.Text>
-                </Form.Group>
+    return (
+      <div>
+        <Button onClick={() => { this.handleModal() }}> Test</Button>
+        <Modal show={this.state.show} onHide={() => { this.handleModal() }} >
+          <Modal.Header closeButton>Test Settings</Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="subjectId">
+                <Form.Label>Subject ID</Form.Label>
+                <Form.Control name="id" type="subjectId" placeholder="" onChange={this.handleInputChange} />
+                <Form.Text className="text-muted">
+                  <></>
+                </Form.Text>
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="trials">
-                  <Form.Label>Number of Trials</Form.Label>
-                  <Form.Control type="trials" placeholder="" />
-                </Form.Group>
+              <Form.Group className="mb-3" controlId="trials">
+                <Form.Label >Number of Trials</Form.Label>
+                <Form.Control name="trials" type="trials" placeholder="" onChange={this.handleInputChange} />
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="difficulty">
-                  <Form.Label>Difficulty</Form.Label>
-                    <Form.Select>
-                      <option>Easy</option>
-                      <option>Medium</option>
-                      <option>Hard</option>
-                    </Form.Select>
-                </Form.Group>
-             </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => {this.handleModal()}}>Close</Button>
-              <Button>Save</Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      );
-    
+              <Form.Group className="mb-3" controlId="difficulty">
+                <Form.Label>Difficulty</Form.Label>
+                <Form.Select value={this.state.value} onChange={this.handleChange}>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </Form.Select>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => { this.handleModal() }}>Close</Button>
+            <Button onClick={this.handleSubmit}>Save</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
   }
 }
