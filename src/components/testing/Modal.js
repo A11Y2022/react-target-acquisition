@@ -6,7 +6,7 @@ import axios from 'axios';
 export default class FittsModal extends React.Component {
   constructor() {
     super()
-    this.state = {
+    this.state = {//default values
       show: false,
       id: null,
       trials: 0,
@@ -35,8 +35,13 @@ export default class FittsModal extends React.Component {
       trials: this.state.trials,
       difficulty: this.state.value
     })
-      .then(res => res)
-      .then(data => console.log(data))
+      .then((response) => {
+        if (response.status !== '200') throw new Error(response.status);
+        else return response;
+      })
+      .then((data) => {this.setState({startTrial: true }); console.log(`starting ${data.data.trials} trials`)})
+      .catch((error) =>{console.log('error: ' + error);})
+
   }
 
   render() {
