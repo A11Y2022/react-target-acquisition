@@ -36,12 +36,19 @@ export default class FittsModal extends React.Component {
       difficulty: this.state.value
     })
       .then((response) => {
-        if (response.status !== '200') throw new Error(response.status);
-        else return response;
+        if (response.status !== 200) throw new Error(response.status);
+        else {
+          console.log(response);
+          return response;
+        }
       })
-      .then((data) => {this.setState({startTrial: true }); console.log(`starting ${data.data.trials} trials`)})
-      .catch((error) =>{console.log('error: ' + error);})
-
+      .then((data) => {
+        // this.setState({ startTrial: true });
+        console.log(`starting ${data.data.trials} trials`);
+        this.handleModal();
+      })
+      .then(this.props.setShow(true))
+      .catch((error) => { console.log('error: ' + error); })
   }
 
   render() {
