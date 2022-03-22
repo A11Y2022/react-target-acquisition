@@ -18,7 +18,14 @@ export default class FittsModal extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange(event) { this.setState({ value: event.target.value }); }//change difficulty
+  handleChange(event) { //change difficulty or number of trials
+    const target = event.target;
+    const value = target.value;
+    console.log(`val ${value}`);
+    target.id === "trials" ? this.setState({ trials: value }) :
+      target.id === "difficulty" ? this.setState({ value: event.target.value }) :
+        console.log("Error: cannot handle change for trials of difficulty in modal");
+  }
   handleModal() { this.setState({ show: !this.state.show }) } //close modal
   handleInputChange(event) {   //handle input change for id and for trials
     const target = event.target;
@@ -43,10 +50,10 @@ export default class FittsModal extends React.Component {
         }
       })
       .then((data) => {
-        // this.setState({ startTrial: true });
         console.log(`starting ${data.data.trials} trials`);
         this.handleModal();
       })
+      .then(this.props.setTrial(this.state.trials))
       .then(this.props.setShow(true))
       .catch((error) => { console.log('error: ' + error); })
   }
@@ -69,7 +76,10 @@ export default class FittsModal extends React.Component {
 
               <Form.Group className="mb-3" controlId="trials">
                 <Form.Label >Number of Trials</Form.Label>
-                <Form.Control name="trials" type="trials" placeholder="" onChange={this.handleInputChange} />
+                <Form.Select value={this.state.trials} type="trials" onChange={this.handleChange}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="difficulty">
