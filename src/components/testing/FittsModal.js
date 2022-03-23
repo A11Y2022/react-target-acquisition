@@ -9,7 +9,7 @@ export default class FittsModal extends React.Component {
     this.state = {//default values
       show: false,
       id: null,
-      trials: 0,
+      trials: '1',
       value: 'easy',
     };
 
@@ -43,6 +43,11 @@ export default class FittsModal extends React.Component {
       difficulty: this.state.value
     })
       .then((response) => {
+        console.log({
+          id: this.state.id,
+          trials: this.state.trials,
+          difficulty: this.state.value
+        });
         if (response.status !== 200) throw new Error(response.status);
         else {
           console.log(response);
@@ -55,7 +60,13 @@ export default class FittsModal extends React.Component {
       })
       .then(this.props.setTrial(this.state.trials))
       .then(this.props.setShow(true))
-      .catch((error) => { console.log('error: ' + error); })
+      .catch((error) => { 
+        console.log({
+          id: this.state.id,
+          trials: this.state.trials,
+          difficulty: this.state.value
+        });
+        console.log('error: ' + error); })
   }
 
   render() {
