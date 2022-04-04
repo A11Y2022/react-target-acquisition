@@ -38,8 +38,8 @@ export default class FittsModal extends React.Component {
     event.preventDefault();
 
     axios.post("http://127.0.0.1:3001/test/create", {
-      id: this.state.id,
-      trials: this.state.trials,
+      id: parseInt(this.state.id),
+      trials: parseInt(this.state.trials),
       difficulty: this.state.value
     })
       .then((response) => {
@@ -48,7 +48,7 @@ export default class FittsModal extends React.Component {
           trials: this.state.trials,
           difficulty: this.state.value
         });
-        if (response.status !== 200) throw new Error(response.status);
+        if (!response.status) throw new Error(response.status);
         else {
           console.log(response);
           return response;
