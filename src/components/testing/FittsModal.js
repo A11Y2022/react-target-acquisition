@@ -6,10 +6,10 @@ import axios from 'axios';
 export default class FittsModal extends React.Component {
   constructor() {
     super()
-    this.state = {
+    this.state = {//default values
       show: false,
       id: null,
-      trials: 0,
+      trials: '1',
       value: 'easy',
     };
 
@@ -18,7 +18,14 @@ export default class FittsModal extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange(event) { this.setState({ value: event.target.value }); }//change difficulty
+  handleChange(event) { //change difficulty or number of trials
+    const target = event.target;
+    const value = target.value;
+    console.log(`val ${value}`);
+    target.id === "trials" ? this.setState({ trials: value }) :
+      target.id === "difficulty" ? this.setState({ value: event.target.value }) :
+        console.log("Error: cannot handle change for trials of difficulty in modal");
+  }
   handleModal() { this.setState({ show: !this.state.show }) } //close modal
   handleInputChange(event) {   //handle input change for id and for trials
     const target = event.target;
@@ -31,12 +38,35 @@ export default class FittsModal extends React.Component {
     event.preventDefault();
 
     axios.post("http://127.0.0.1:3001/test/create", {
-      id: this.state.id,
-      trials: this.state.trials,
+      id: parseInt(this.state.id),
+      trials: parseInt(this.state.trials),
       difficulty: this.state.value
     })
-      .then(res => res)
-      .then(data => console.log(data))
+      .then((response) => {
+        console.log({
+          id: this.state.id,
+          trials: this.state.trials,
+          difficulty: this.state.value
+        });
+        if (!response.status) throw new Error(response.status);
+        else {
+          console.log(response);
+          return response;
+        }
+      })
+      .then((data) => {
+        console.log(`starting ${data.data.trials} trials`);
+        this.handleModal();
+      })
+      .then(this.props.setTrial(this.state.trials))
+      .then(this.props.setShow(true))
+      .catch((error) => { 
+        console.log({
+          id: this.state.id,
+          trials: this.state.trials,
+          difficulty: this.state.value
+        });
+        console.log('error: ' + error); })
   }
 
   render() {
@@ -57,7 +87,10 @@ export default class FittsModal extends React.Component {
 
               <Form.Group className="mb-3" controlId="trials">
                 <Form.Label >Number of Trials</Form.Label>
-                <Form.Control name="trials" type="trials" placeholder="" onChange={this.handleInputChange} />
+                <Form.Select value={this.state.trials} type="trials" onChange={this.handleChange}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="difficulty">

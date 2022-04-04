@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactFlow from 'react-flow-renderer';
 import { nodeTypes } from './CircleNode';
 
-const UpdateNode = ({ initialElements }) => {
+const UpdateNode = ({ initialElements, countTrial }) => {
   // State Management
   const [elements, setElements] = useState(initialElements);
   const [nodeId, setNodeId] = useState('1');
@@ -22,6 +22,10 @@ const UpdateNode = ({ initialElements }) => {
         }
         else {
           el.data = { backgroundColor: "black" }
+        }
+        if (nodeId > 7) {
+          setNodeId('1'); // restart test for next trial
+          countTrial(); //update state of the current trial on the test page
         }
         return el;
       })
