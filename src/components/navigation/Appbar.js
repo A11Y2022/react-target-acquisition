@@ -2,6 +2,7 @@ import React from "react";
 import { Offcanvas, Navbar, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Drawer } from "./Drawer";
+import Login from "../login/Login";
 
 export const Appbar = () => {
   return (
@@ -9,6 +10,7 @@ export const Appbar = () => {
       <Navbar bg="light" expand={false}>
         <Container fluid>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
+          <Login />
           <Navbar.Offcanvas
             backdrop={false}
             id="offcanvasNavbar"
