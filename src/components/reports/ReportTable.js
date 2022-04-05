@@ -5,9 +5,9 @@ const ReportTable = () => {
   const date = new Date().toString();
 
   const reportInfo = [
-    { name: "Andres", trials: 3, date: date },
-    { name: "Peter Griffin", trials: 3, date },
-    { name: "Larry the Bird", trials: 4, date },
+    { name: "John Doe", trials: 3, date: date },
+    { name: "James Roberts", trials: 3, date },
+    { name: "Mary", trials: 4, date },
   ];
 
   const renderUser = (user, index) => {
