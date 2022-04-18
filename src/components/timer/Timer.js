@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 function Timer({ minutes, seconds, centiseconds }) {
   return (
-    <div className="timer">
+    <div className="timer" style={{ paddingTop: "50px" }}>
       <Button variant="dark" size="lg">
         {minutes}
       </Button>

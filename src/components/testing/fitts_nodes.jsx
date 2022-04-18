@@ -23,16 +23,9 @@ const UpdateNode = ({ initialElements }) => {
     const nextId = (parseInt(element.id) + 1).toString(); //increment integer value and convert to string
     setNodeId(nextId);
     if (element.id === "1") {
-      console.log(
-        element.id + " " + minutes + ":" + seconds + ":" + centiseconds
-      );
       setTime(0);
       setIsActive(true);
       setIsStopped(false);
-    } else {
-      console.log(
-        element.id + " " + minutes + ":" + seconds + ":" + centiseconds
-      );
     }
     if (element.id === "7") {
       setIsActive(false);
