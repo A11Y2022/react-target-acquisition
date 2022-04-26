@@ -3,6 +3,7 @@ import { useGoogleLogin, useGoogleLogout } from "react-google-login";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { Button } from "react-bootstrap";
+import { storeUser } from "../../api/login/login.api";
 
 export default function Login() {
   // Client ID
@@ -13,8 +14,11 @@ export default function Login() {
   const [showLogoutButton, setShowLogoutButton] = useState(false);
 
   // if the login is successful, then the logout button will show, Login button will not show
-  const onSuccess = (res) => {
-    console.log("Login Successful. Access Token:", res.accessToken);
+  const onSuccess = async (res) => {
+    localStorage.setItem("accessToken", res.accessToken);
+    console.log("Login Successful:", res.profileObj);
+    await storeUser(res.profileObj);
+    
     setShowLoginButton(false);
     setShowLogoutButton(true);
   };
