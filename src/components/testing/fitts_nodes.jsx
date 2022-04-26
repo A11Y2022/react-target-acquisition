@@ -33,14 +33,20 @@ const UpdateNode = ({ initialElements, countTrial }) => {
   }, [nodeBg, nodeId, setElements]);
 
   return (
-    <div style={{ height: 800, width: 1000 }}>
+    <div style={{ height: 700, width: 1800 }}>
       <ReactFlow
-        elements={elements}
-        nodeTypes={nodeTypes}
         onElementClick={onElementClick}
-        defaultZoom={1.5}
-        minZoom={0.2}
-        maxZoom={4}>
+        nodeTypes={nodeTypes}
+        elements={elements}
+        minZoom={2.0}
+        maxZoom={2.0}
+        defaultZoom={2.0}
+        zoomOnPinch={false}
+        zoomOnScroll={false}
+        panOnScroll={false}
+        panOnDrag={false}
+        defaultPosition={[-209,-396]}
+        >
       </ReactFlow>
     </div>
   );
