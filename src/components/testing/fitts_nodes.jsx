@@ -3,7 +3,7 @@ import ReactFlow from "react-flow-renderer";
 import Timer from "../timer/Timer";
 import { nodeTypes } from "./CircleNode";
 
-const UpdateNode = ({ initialElements }) => {
+const UpdateNode = ({ initialElements, countTrial }) => {
   // State Management
   const [elements, setElements] = useState(initialElements);
   const [nodeId, setNodeId] = useState("1");
@@ -41,6 +41,10 @@ const UpdateNode = ({ initialElements }) => {
         } else {
           el.data = { backgroundColor: "black" };
         }
+        if (nodeId > 7) {
+          setNodeId('1'); // restart test for next trial
+          countTrial(); //update state of the current trial on the test page
+        }
         return el;
       })
     );
@@ -62,17 +66,22 @@ const UpdateNode = ({ initialElements }) => {
   }, [isActive, isStopped]);
 
   return (
-    <div>  <Timer minutes={minutes} seconds={seconds} centiseconds={centiseconds} />
-      <div style={{ height: 800, width: 1000 }}>
-        <ReactFlow
-          elements={elements}
-          nodeTypes={nodeTypes}
-          onElementClick={onElementClick}
-          defaultZoom={1.5}
-          minZoom={0.2}
-          maxZoom={4}
-        ></ReactFlow>
-      </div>
+    <div style={{ height: 700, width: 1800 }}>
+    <Timer minutes={minutes} seconds={seconds} centiseconds={centiseconds} />
+      <ReactFlow
+        onElementClick={onElementClick}
+        nodeTypes={nodeTypes}
+        elements={elements}
+        minZoom={2.0}
+        maxZoom={2.0}
+        defaultZoom={2.0}
+        zoomOnPinch={false}
+        zoomOnScroll={false}
+        panOnScroll={false}
+        panOnDrag={false}
+        defaultPosition={[-209,-396]}
+        >
+      </ReactFlow>
     </div>
   );
 };

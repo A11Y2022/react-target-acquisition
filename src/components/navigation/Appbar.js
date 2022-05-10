@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Offcanvas, Navbar, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Drawer from "./Drawer";
+import Login from "../login/Login";
 
 function Appbar() {
   const [show, setShow] = useState(false);
@@ -14,6 +15,7 @@ function Appbar() {
       <Navbar bg="light" expand={false}>
         <Container fluid>
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
+          <Login />
           <Navbar.Offcanvas
             show={show}
             backdrop={false}

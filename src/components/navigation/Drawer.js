@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { Nav, NavDropdown } from "react-bootstrap";
 
 function Drawer({ handleClose }) {
   return (
@@ -15,7 +15,19 @@ function Drawer({ handleClose }) {
         <Nav.Link as={Link} to="/report" onClick={handleClose}>
           Report
         </Nav.Link>
-        <Nav.Link as={Link} to="/customize" onClick={handleClose}>
+        <NavDropdown title="Report" id="navbarScrollingDropdown" href="/rpot">
+          <NavDropdown.Item>
+            <Nav.Link as={Link} to="/report">
+              Table
+            </Nav.Link>
+          </NavDropdown.Item>
+          <NavDropdown.Item>
+            <Nav.Link as={Link} to="/report/graphs">
+              Graphs
+            </Nav.Link>
+          </NavDropdown.Item>
+        </NavDropdown>
+        <Nav.Link as={Link} to="/customize">
           Customize
         </Nav.Link>
         <Nav.Link as={Link} to="/test" onClick={handleClose}>
