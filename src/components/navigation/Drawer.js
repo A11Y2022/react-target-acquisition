@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { Nav, NavDropdown } from "react-bootstrap";
 
 export const Drawer = () => {
   return (
@@ -12,9 +12,18 @@ export const Drawer = () => {
         <Nav.Link as={Link} to="/">
           Home
         </Nav.Link>
-        <Nav.Link as={Link} to="/report">
-          Report
-        </Nav.Link>
+        <NavDropdown title="Report" id="navbarScrollingDropdown" href="/rpot">
+          <NavDropdown.Item>
+            <Nav.Link as={Link} to="/report">
+              Table
+            </Nav.Link>
+          </NavDropdown.Item>
+          <NavDropdown.Item>
+            <Nav.Link as={Link} to="/report/graphs">
+              Graphs
+            </Nav.Link>
+          </NavDropdown.Item>
+        </NavDropdown>
         <Nav.Link as={Link} to="/customize">
           Customize
         </Nav.Link>
