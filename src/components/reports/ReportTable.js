@@ -5,15 +5,15 @@ const ReportTable = () => {
   const date = new Date().toString();
 
   const reportInfo = [
-    { name: "John Doe", trials: 3, date: date },
-    { name: "James Roberts", trials: 3, date },
-    { name: "Mary", trials: 4, date },
+    { report: "Report1",  trials: 3, date: date },
+    { report: "Report2",  trials: 3, date },
+    { report: "Report3",  trials: 4, date },
   ];
 
   const renderUser = (user, index) => {
     return (
       <tr key={index}>
-        <td>{user.name}</td>
+        <td>{user.report}</td>
         <td>{user.trials}</td>
         <td>{user.date}</td>
       </tr>
@@ -22,10 +22,10 @@ const ReportTable = () => {
 
   return (
     <div className="ReportTable">
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Report</th>
             <th>Trials</th>
             <th>Date</th>
           </tr>
