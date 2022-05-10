@@ -62,16 +62,17 @@ const UpdateNode = ({ initialElements }) => {
   }, [isActive, isStopped]);
 
   return (
-    <div style={{ height: 800, width: 1000 }}>
-      <Timer minutes={minutes} seconds={seconds} centiseconds={centiseconds} />
-      <ReactFlow
-        elements={elements}
-        nodeTypes={nodeTypes}
-        onElementClick={onElementClick}
-        defaultZoom={1.5}
-        minZoom={0.2}
-        maxZoom={4}
-      ></ReactFlow>
+    <div>  <Timer minutes={minutes} seconds={seconds} centiseconds={centiseconds} />
+      <div style={{ height: 800, width: 1000 }}>
+        <ReactFlow
+          elements={elements}
+          nodeTypes={nodeTypes}
+          onElementClick={onElementClick}
+          defaultZoom={1.5}
+          minZoom={0.2}
+          maxZoom={4}
+        ></ReactFlow>
+      </div>
     </div>
   );
 };
