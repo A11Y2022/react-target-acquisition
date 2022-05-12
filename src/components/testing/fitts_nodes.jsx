@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactFlow from 'react-flow-renderer';
 import { nodeTypes } from './CircleNode';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const UpdateNode = ({ initialElements, countTrial }) => {
   // State Management
@@ -33,21 +34,42 @@ const UpdateNode = ({ initialElements, countTrial }) => {
   }, [nodeBg, nodeId, setElements]);
 
   return (
-    <div style={{ height: 700, width: 1800 }}>
-      <ReactFlow
-        onElementClick={onElementClick}
-        nodeTypes={nodeTypes}
-        elements={elements}
-        minZoom={2.0}
-        maxZoom={2.0}
-        defaultZoom={2.0}
-        zoomOnPinch={false}
-        zoomOnScroll={false}
-        panOnScroll={false}
-        panOnDrag={false}
-        defaultPosition={[-209,-396]}
-        >
-      </ReactFlow>
+    <div>
+       <TransformWrapper
+        initialScale={1}
+        initialPositionX={0}
+        initialPositionY={0}
+      >
+        {({ zoomIn, zoomOut, resetTransform,zoomToElement, ...rest }) => (
+          <div>
+          <React.Fragment>
+            <div className="tools" >
+              <button onClick={() => zoomIn()}>Zoom In</button>
+              <button onClick={() => zoomOut()}>Zoom Out</button>
+              <button onClick={() => resetTransform()}>Reset</button>
+            </div>
+            <TransformComponent>
+              <div style={{ height: 700, width: 1800 }}>
+                <ReactFlow
+                  onElementClick={onElementClick}
+                  nodeTypes={nodeTypes}
+                  elements={elements}
+                  minZoom={2.0}
+                  maxZoom={2.0}
+                  defaultZoom={2.0}
+                  zoomOnPinch={false}
+                  zoomOnScroll={false}
+                  panOnScroll={false}
+                  panOnDrag={false}
+                  defaultPosition={[-209,-396]}
+                  >
+                </ReactFlow>
+              </div>
+            </TransformComponent>
+          </React.Fragment>
+          </div>
+        )}
+      </TransformWrapper>
     </div>
   );
 };
