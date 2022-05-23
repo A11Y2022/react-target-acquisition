@@ -8,7 +8,9 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://127.0.0.1:3001';
 // axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 ReactDOM.render(
   <React.StrictMode>
