@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import  Appbar  from "./components/navigation/Appbar";
-import { Report } from "./view/Report/Report";
+import Report  from "./view/Report/Report.js";
 import { Customize } from "./view/Customize";
 import { Test } from "./view/Test";
 import { Home } from "./view/Home";

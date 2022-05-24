@@ -37,25 +37,16 @@ export default class FittsModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    axios.post("http://127.0.0.1:3001/test/create", {
-      id: parseInt(this.state.id),
-      trials: parseInt(this.state.trials),
-      difficulty: this.state.value
+    axios.post("/test/create", {
+      id: this.state.id.toString(),
+      trials: this.state.trials.toString(),
+      difficulty: this.state.value,
+      trial_data: []
     })
-      .then((response) => {
-        console.log({
-          id: this.state.id,
-          trials: this.state.trials,
-          difficulty: this.state.value
-        });
-        if (!response.status) throw new Error(response.status);
-        else {
-          console.log(response);
-          return response;
-        }
-      })
+      .then((response) => response.data.data)
       .then((data) => {
-        console.log(`starting ${data.data.trials} trials`);
+        localStorage.setItem("trial_id",data.InsertedID)
+        console.log(`stored ID ${data.InsertedID}`)
         this.handleModal();
       })
       .then(this.props.setTrial(this.state.trials))

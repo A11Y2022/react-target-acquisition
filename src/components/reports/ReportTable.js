@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
+import GetTrials from "../../api/reports/reportApi";
 
+async function getTrialData(tableData) {
+  Object.values(tableData).forEach((test) => {
+    let count = 0;
+    Object.values(test.trial_data).forEach((click) => {
+     count ++;
+    })
+    test.percent_accuracy = ((7 / count ) * 100).toFixed(2);
+    
+  })
+  console.log(tableData)
+  return tableData
+}
 const ReportTable = () => {
-  const date = new Date().toString();
+  const [tableData, setTableData] = useState({})
 
-  const reportInfo = [
-    { report: "Report1",  trials: 3, date: date },
-    { report: "Report2",  trials: 3, date },
-    { report: "Report3",  trials: 4, date },
-  ];
 
-  const renderUser = (user, index) => {
+  useEffect(() => {
+    GetTrials().then(data => getTrialData(data)).then(tableData => setTableData(tableData))
+    
+  }, [])
+
+
+
+  const renderRow = (test, index) => {
     return (
       <tr key={index}>
-        <td>{user.report}</td>
-        <td>{user.trials}</td>
-        <td>{user.date}</td>
+        <td>{test.id}</td>
+        <td>{test.difficulty}</td>
+        <td>{test.trials}</td>
+        <td>{test.percent_accuracy}</td>
+        <td></td>
       </tr>
     );
   };
@@ -25,12 +42,13 @@ const ReportTable = () => {
       <Table bordered hover>
         <thead>
           <tr>
-            <th>Report</th>
+            <th>Name</th>
+            <th>Difficulty</th>
             <th>Trials</th>
-            <th>Date</th>
+            <th>Accuracy%</th>
           </tr>
         </thead>
-        <tbody>{reportInfo.map(renderUser)}</tbody>
+        <tbody>{Object.values(tableData).map(renderRow)}</tbody>
       </Table>
     </div>
   );
